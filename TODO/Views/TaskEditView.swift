@@ -1,43 +1,24 @@
 import SwiftUI
 import SwiftData
 
-struct EditTodoView: View {
-	let todo: TodoItem
+struct TaskEditView: View {
 	@Environment(\.modelContext) private var modelContext
 	@Environment(\.dismiss) private var dismiss
 	
+	var task: TaskItem?
+	
 	@State private var title = ""
-	@State private var taskDescription = ""
-	@FocusState private var focusedField: Field?
-	
-	enum Field {
-		case title, taskDescription
-	}
-	
-	var isValid: Bool {
-		!title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-	}
-	
-	init(todo: TodoItem) {
-		self.todo = todo
-		_title = State(initialValue: todo.title)
-		_taskDescription = State(initialValue: todo.taskDescription ?? "")
-	}
+	@FocusState private var isTextFieldFocused: Bool
 	
 	var body: some View {
 		NavigationStack {
 			Form {
 				Section {
 					TextField("Название задачи", text: $title)
-						.focused($focusedField, equals: .title)
-						.submitLabel(.next)
-					
-					TextField("Описание (необязательно)", text: $taskDescription, axis: .vertical)
-						.focused($focusedField, equals: .taskDescription)
-						.lineLimit(3...5)
+						.focused($isTextFieldFocused)
 				}
 			}
-			.navigationTitle("Изменить задачу")
+			.navigationTitle(task == nil ? "Новая задача" : "Редактировать")
 			.navigationBarTitleDisplayMode(.inline)
 			.toolbar {
 				ToolbarItem(placement: .navigationBarLeading) {
@@ -48,17 +29,33 @@ struct EditTodoView: View {
 				
 				ToolbarItem(placement: .navigationBarTrailing) {
 					Button("Сохранить") {
-						todo.title = title
-						todo.taskDescription = taskDescription.isEmpty ? nil : taskDescription
-						try? modelContext.save()
+						saveTask()
 						dismiss()
 					}
-					.disabled(!isValid)
+					.disabled(title.trimmingCharacters(in: .whitespaces).isEmpty)
 				}
 			}
 			.onAppear {
-				focusedField = .title
+				if let task = task {
+					title = task.title
+				}
+				isTextFieldFocused = true
 			}
 		}
+	}
+	
+	private func saveTask() {
+		let trimmedTitle = title.trimmingCharacters(in: .whitespaces)
+		
+		if let task = task {
+			// Редактируем существующую задачу
+			task.title = trimmedTitle
+		} else {
+			// Создаем новую задачу
+			let newTask = TaskItem(title: trimmedTitle)
+			modelContext.insert(newTask)
+		}
+		
+		try? modelContext.save()
 	}
 }
