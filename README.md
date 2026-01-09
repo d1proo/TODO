@@ -1,5 +1,5 @@
-# 📝 ToDo App на SwiftUI + SwiftData
-Простое, но функциональное приложение для управления задачами, написанное на SwiftUI с использованием SwiftData для локального хранения данных.
+# 📝 ToDo App - SwiftUI + SwiftData
+A simple yet functional task management application built with SwiftUI and SwiftData for local storage.
 
 <div align="center">
 <img width="250" src="https://github.com/user-attachments/assets/cc8c5ef3-815b-45c6-b2c3-22cc38f03039" />
@@ -7,32 +7,27 @@
 <img width="250" src="https://github.com/user-attachments/assets/83ea5ec9-a733-479a-b5b9-7f8643c2ff04" />
 </div>
 
-## ✨ Возможности приложения
-✅ Добавление новых задач — быстрый ввод через удобную форму
+## ✨ Features
+- ✅ Add New Tasks - Quick input through an intuitive form
+- ✏️ Edit Existing Tasks - Tap on text to modify
+- 🗑️ Delete Tasks - Swipe left to remove
+- ✓ Mark as Complete - Tap the circle to toggle status
+- 🎯 Automatic Sorting - Completed tasks smoothly move to the bottom
+- 💾 Data Persistence - All tasks saved between app launches
+- 🎨 Smooth Animations - Priority given to user experience
 
-✏️ Редактирование существующих задач — тап по тексту для изменения
+## 🏗️ Technical Implementation
+- SwiftData - For data persistence and local storage
 
-🗑️ Удаление задач — свайп влево для удаления
+- @Model - For defining data models with automatic observation
 
-✓ Отметка о выполнении — тап по кружку для изменения статуса
+- @Query - For reactive data queries with automatic UI updates
 
-🎯 Автоматическая сортировка — выполненные задачи плавно перемещаются вниз
+- @Environment - For accessing the model context throughout the app
 
-💾 Сохранение данных — все задачи сохраняются между запусками
+- Modern SwiftUI - Using the latest declarative syntax and patterns
 
-🎨 Плавные анимации — приоритет пользовательскому опыту
-
-## 🏗️ Технические особенности
-
-- SwiftData — для хранения данных
-
-- @Model — для определения моделей данных
-
-- @Query — для реактивных запросов к данным
-
-- @Environment — для доступа к контексту модели
-
-## 📁 Архитектура проекта
+## 📁 Project Structure
 ```
 TODO/
 ├── Model/
@@ -43,3 +38,25 @@ TODO/
 ├── Assets
 └── TODOApp
 ```
+## 🚀 Getting Started
+- Clone or download the project
+
+- Open in Xcode 15+
+
+- Build and run on iOS 17.0+ simulator or device
+
+- Start managing tasks immediately
+
+## 💡 Usage Tips
+- Tap the "+" button to add new tasks
+
+- Tap any task text to edit it
+
+- Swipe left on a task to delete it
+
+- Tap the circle to mark tasks complete/incomplete
+
+- Completed tasks automatically move to bottom
+
+### 📄 License
+This project is available for educational and personal use. Modify and extend as needed for learning purposes.
